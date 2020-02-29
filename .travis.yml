@@ -1,6 +1,12 @@
 language: java
 
-sudo: false # faster builds
+jdk:
+  - openjdk8
+
+# prevent travis running gradle assemble; let the build script do it anyway
+install: true
+
+sudo: required # faster builds
   
 script: "mvn clean test cobertura:cobertura"
 

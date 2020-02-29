@@ -1,12 +1,8 @@
 language: java
 
 sudo: false # faster builds
-
-jdk:
-  - oraclejdk9
-  - openjdk9
   
-script: "mvn cobertura:cobertura"
+script: "mvn clean test"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

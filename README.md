@@ -216,7 +216,7 @@ class Main {
 | get | 获取对象的属性 | (String fieldName) |
 | and | 变更待校验对象 | (Object value) |
 | notNull | 非null校验| -  /（String message） |
-| notEmpty | 非空校验（包含非null校验） | -  /（String message | 
+| notEmpty | 非空校验（包含非null校验） | -  /（String message) | 
 | max | 最大值校验 | (int max) / (int max, String message) |
 | min | 最小值校验 | (int min) / (int min, String message)|
 | maxLength | 最大长度校验 | (int max) / (int max, String message) |

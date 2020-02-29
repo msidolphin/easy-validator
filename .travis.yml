@@ -3,4 +3,4 @@ language: java
 script: "mvn cobertura:cobertura"
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t b83eee9a-9016-4ec2-a74e-aec8e4a4ff4a
+  - bash <(curl -s https://codecov.io/bash)

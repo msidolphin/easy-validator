@@ -3,6 +3,7 @@
 > 轻量级服务端校验框架
 
 ![Java CI](https://github.com/msidolphin/easy-validator/workflows/Java%20CI/badge.svg)
+[![codebeat badge](https://codebeat.co/badges/fc1c26fd-0f5a-4abb-83a3-ffb5af9f729c)](https://codebeat.co/projects/github-com-msidolphin-easy-validator-master)
 
 ```xml
 <dependency>

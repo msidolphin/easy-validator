@@ -2,6 +2,8 @@
 
 > 轻量级服务端校验框架
 
+![Java CI](https://github.com/msidolphin/easy-validator/workflows/Java%20CI/badge.svg)
+
 ```xml
 <dependency>
   <groupId>io.github.msidolphin</groupId>

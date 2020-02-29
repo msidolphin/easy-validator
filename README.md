@@ -210,22 +210,22 @@ class Main {
 
 ## 支持的函数
 
-| 函数名        | 说明    | 参数类型 |
-| :---------: | :------ | :----- |
-| is | 创建validator对象 | Object |
-| get | 获取对象的属性 | String |
-| and | 变更待校验对象 | Object |
-| notNull | 非null校验| |
-| notEmpty | 非空校验（包含非null校验） | | 
-| max | 最大值校验 | int |
-| min | 最小值校验 | int |
-| maxLength | 最大长度校验 | int |
-| minLength | 最小长度校验 | int |
-| idCard | 中国大陆身份证校验 | |
-| email | 邮箱格式校验 | |
-| phone | 手机号校验 | |
-| ip | IP地址校验 | |
-| chinese| 中文字符校验 | |
-| english | 英文校验 | |
-| pattern | 自定义正则校验 | String |
-| date | 日期格式校验 | String |
+| 函数名        | 说明    | 参数 |
+| :--------- | :------ | :----- |
+| is | 创建validator对象 | (Object value) |
+| get | 获取对象的属性 | (String fieldName) |
+| and | 变更待校验对象 | (Object value) |
+| notNull | 非null校验| -  /（String message） |
+| notEmpty | 非空校验（包含非null校验） | -  /（String message | 
+| max | 最大值校验 | (int max) / (int max, String message) |
+| min | 最小值校验 | (int min) / (int min, String message)|
+| maxLength | 最大长度校验 | (int max) / (int max, String message) |
+| minLength | 最小长度校验 | (int min) / (int min, String message) |
+| idCard | 中国大陆身份证校验 | -  /（String message） |
+| email | 邮箱格式校验 | -  /（String message） |
+| phone | 手机号校验 | -  /（String message） |
+| ip | IP地址校验 | -  /（String message） |
+| chinese| 中文字符校验 | -  /（String message） |
+| english | 英文校验 | -  /（String message） |
+| pattern | 自定义正则校验 | (String pattern) / (String pattern, String message) |
+| date | 日期格式校验 | (String format) /（String format, String message） |

@@ -6,7 +6,9 @@
 
     <groupId>io.github.msidolphin</groupId>
     <artifactId>easyvalidator</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>easy-validator</name>
+    <description>A lightweight validate framework for java</description>
 
     <distributionManagement>
         <repository>
@@ -28,9 +30,10 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/msidolphin/easy-validator</url>
-        <connection>https://github.com/msidolphin/easy-validator.git</connection>
-        <developerConnection>https://github.com/msidolphin/easy-validator</developerConnection>
+        <tag>master</tag>
+        <url>git@github.com:msidolphin/easy-validator.git</url>
+        <connection>scm:git@github.com:msidolphin/easy-validator.git</connection>
+        <developerConnection>scm:git@github.com:msidolphin/easy-validator.git</developerConnection>
     </scm>
 
     <developers>

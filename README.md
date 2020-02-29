@@ -4,6 +4,7 @@
 
 ![Java CI](https://github.com/msidolphin/easy-validator/workflows/Java%20CI/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/fc1c26fd-0f5a-4abb-83a3-ffb5af9f729c)](https://codebeat.co/projects/github-com-msidolphin-easy-validator-master)
+[![codecov](https://codecov.io/gh/msidolphin/easy-validator/branch/master/graph/badge.svg)](https://codecov.io/gh/msidolphin/easy-validator)
 
 ```xml
 <dependency>

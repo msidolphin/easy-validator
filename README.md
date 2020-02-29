@@ -2,6 +2,15 @@
 
 > 轻量级服务端校验框架
 
+```xml
+<dependency>
+  <groupId>io.github.msidolphin</groupId>
+  <artifactId>easyvalidator</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+
 ## 使用方式
 
 ### 非注解校验

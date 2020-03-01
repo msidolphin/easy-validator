@@ -42,6 +42,9 @@ public class User implements Serializable {
     @Pattern("\\d{1,3}kg")
     private String weight;
 
+    @Sex
+    private String sex;
+
     public String getName() {
         return name;
     }
@@ -123,6 +126,15 @@ public class User implements Serializable {
         return this;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public User setSex(String sex) {
+        this.sex = sex;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -137,4 +149,5 @@ public class User implements Serializable {
                 ", weight='" + weight + '\'' +
                 '}';
     }
+
 }

@@ -16,6 +16,9 @@
 
 package io.github.msidolphin.easyvalidator.util;
 
+import io.github.msidolphin.easyvalidator.annotation.Constraint;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -36,4 +39,17 @@ public class ReflectUtils {
         }
         return fieldSet;
     }
+
+    public static Constraint getConstraintAnnotation (Annotation annotation) {
+        if (annotation.annotationType().isAnnotationPresent(Constraint.class)) {
+           Annotation[] annotations = annotation.annotationType().getAnnotations();
+           for (int i = 0; i < annotations.length; ++i) {
+               if (annotations[i] instanceof Constraint) {
+                   return (Constraint) annotations[i];
+               }
+           }
+        }
+        return null;
+    }
+
 }

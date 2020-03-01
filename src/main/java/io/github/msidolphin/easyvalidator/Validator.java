@@ -17,6 +17,7 @@
 package io.github.msidolphin.easyvalidator;
 
 import io.github.msidolphin.easyvalidator.constraint.*;
+import io.github.msidolphin.easyvalidator.exception.ValidatorNotFoundException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import io.github.msidolphin.easyvalidator.util.ReflectUtils;
 import io.github.msidolphin.easyvalidator.util.ValidateCache;
@@ -213,6 +214,15 @@ public final class Validator {
         return this;
     }
 
+    public Validator custom(Class<? extends ConstraintValidator> validatorClass) {
+        ConstraintValidator validator = ValidatorUtils.lookup(validatorClass);
+        if (CommonUtil.isEmpty(validator)) {
+            throw new ValidatorNotFoundException(validatorClass.getName());
+        }
+        validator.validate(currentValue, new BaseConstraint(fieldName));
+        return this;
+    }
+
     public static Validator validate(Object value) {
         Validator validator = new Validator(value);
         validator.notNull();
@@ -277,6 +287,10 @@ public final class Validator {
                     validator.english(((English) annotation).msg());
                 } else if (annotation instanceof IP) {
                     validator.ip(((IP) annotation).msg());
+                } else {
+                    Constraint constraint = ReflectUtils.getConstraintAnnotation(annotation);
+                    if (CommonUtil.isEmpty(constraint)) return validator;
+                    validator.custom(constraint.validatedBy());
                 }
             }
         }

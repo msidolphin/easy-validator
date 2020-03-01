@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
+package io.github.msidolphin.easyvalidator.annotation;
+import io.github.msidolphin.easyvalidator.validator.ConstraintValidator;
 
-package io.github.msidolphin.easyvalidator.validator;
+import java.lang.annotation.*;
 
-import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
-import io.github.msidolphin.easyvalidator.util.CommonUtil;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE})
+@Documented
+public @interface Constraint {
 
-public abstract class AbstractValidator<T extends BaseConstraint> implements IValidator<T> {
-
-    @Override
-    public boolean validate(Object value, T constraint, String message) {
-        return true;
-    }
-
-    public String getFieldName (T constraint) {
-        if (CommonUtil.isEmpty(constraint)) return null;
-        return constraint.getFieldName();
-    }
+    Class<? extends ConstraintValidator> validatedBy();
 
 }

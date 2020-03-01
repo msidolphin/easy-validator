@@ -68,7 +68,8 @@ public class ValidatorTest extends BaseValidatorTest {
                 .setIdCard("11010119950101555X")
                 .setIp("192.168.0.1")
                 .setIntro("我的名字叫迈克")
-                .setWeight("75kg");
+                .setWeight("75kg")
+                .setSex("male");
         Validator.validate(user);
     }
 

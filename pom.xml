@@ -6,9 +6,10 @@
 
     <groupId>io.github.msidolphin</groupId>
     <artifactId>easyvalidator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>easy-validator</name>
     <description>A lightweight validate framework for java</description>
+    <url>https://github.com/msidolphin/easy-validator</url>
 
     <distributionManagement>
         <repository>
@@ -125,7 +126,7 @@
                         <version>1.6.3</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
+                            <serverId>repository</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>

@@ -6,12 +6,13 @@
 [![Build Status](https://travis-ci.org/msidolphin/easy-validator.svg?branch=master)](https://travis-ci.org/msidolphin/easy-validator)
 [![codebeat badge](https://codebeat.co/badges/fc1c26fd-0f5a-4abb-83a3-ffb5af9f729c)](https://codebeat.co/projects/github-com-msidolphin-easy-validator-master)
 [![codecov](https://codecov.io/gh/msidolphin/easy-validator/branch/master/graph/badge.svg)](https://codecov.io/gh/msidolphin/easy-validator)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.msidolphin/easyvalidator?style=plastic)
 
 ```xml
 <dependency>
   <groupId>io.github.msidolphin</groupId>
   <artifactId>easyvalidator</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0-RELEASE</version>
 </dependency>
 ```
 
@@ -196,7 +197,7 @@ class Main {
 | 注解        | 说明    |
 | :--------- | :------ |
 | @NotNull | 非null校验 |
-@NotEmpty | 非空校验（包含非null校验） |
+| @NotEmpty | 非空校验（包含非null校验） |
 | @Max | 最大值校验 |
 | @Min | 最小值校验 |
 | @MaxLength | 最大长度校验 |
@@ -209,6 +210,7 @@ class Main {
 | @English | 英文校验 |
 | @Pattern | 自定义正则校验 |
 | @Date | 日期格式校验 |
+| @Constraint | 自定义校验 | 
 
 ## 支持的函数
 
@@ -231,3 +233,50 @@ class Main {
 | english | 英文校验 | -  /（String message） |
 | pattern | 自定义正则校验 | (String pattern) / (String pattern, String message) |
 | date | 日期格式校验 | (String format) /（String format, String message） |
+| custom | 自定义校验 | Class<? extends ConstraintValidator> validatorClass |
+
+## 自定义校验
+
+### 注解
+
+一、使用@Constraint注解，指定自定义校验类的class
+```java
+import java.lang.annotation.*;
+import io.github.msidolphin.easyvalidator.annotation.Constraint;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+@Constraint(validatedBy = SexValidator.class)
+public @interface Sex {
+}
+
+```
+
+二、自定义校验类继承ConstraintValidator抽象类并重写validate方法
+```java
+import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
+import io.github.msidolphin.easyvalidator.validator.ConstraintValidator;
+
+public class SexValidator extends ConstraintValidator<String> {
+
+    @Override
+    public void validate(String gender, BaseConstraint constraint) {
+        if (!"male".equals(gender) && !"female".equals(gender)) {
+            throw new RuntimeException("gender must be male or female.");
+        }
+    }
+
+}
+```
+
+### 调用custom函数
+```java
+class Main {
+    public static void main(String[] args){
+        User user = new User();
+        Validator.is(user).get("sex").custom(SexValidator.class);
+    }
+}
+```
+
+Copyright © 2020-present, msidolphin

@@ -35,9 +35,12 @@ public class DateValidatorTest extends TestCase {
 
     private void tryCatch (Object value, String format, String message) {
         try {
-            new DateValidator().validate(value, new DateConstraint(format), message);
+            DateConstraint constraint = new DateConstraint();
+            constraint.setFieldName("time");
+            constraint.setFormat(format);
+            new DateValidator().validate(value, constraint, message);
         } catch (ValidateFailedException e) {
-            System.out.println(e);
+            assertEquals("Failed to validate time: expected: " + format + ", actual: " + value, e.getMessage());
             return;
         }
         throw new RuntimeException("failed");

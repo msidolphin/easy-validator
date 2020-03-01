@@ -238,4 +238,9 @@ public class ValidatorTest extends BaseValidatorTest {
         }
     }
 
+    @Test
+    public void testGet () {
+        Validator.validate(1);
+    }
+
 }

@@ -10,7 +10,10 @@ public class MaxLengthValidatorTest extends BaseValidatorTest {
     @Test
     public void test() {
         // string
-        new MaxLengthValidator().validate("I am fine", new LengthConstraint(9), null);
+        LengthConstraint constraint = new LengthConstraint();
+        constraint.setFieldName("dialog");
+        constraint.setLength(9);
+        new MaxLengthValidator().validate("I am fine", constraint, null);
         // collection
         List<String> list = new ArrayList<>();
         list.add("a");
@@ -48,5 +51,7 @@ public class MaxLengthValidatorTest extends BaseValidatorTest {
             new MaxLengthValidator().validate(array, new LengthConstraint(0), null);
         });
     }
+
+
 
 }

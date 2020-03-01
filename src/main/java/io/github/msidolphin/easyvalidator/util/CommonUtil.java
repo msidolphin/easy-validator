@@ -32,11 +32,8 @@ public class CommonUtil {
         if ((o instanceof String)) {
             return ((String) o).trim().length() == 0;
         }
-        if ((o instanceof List)) {
-            return ((List) o).size() == 0;
-        }
-        if ((o instanceof Set)) {
-            return ((Set) o).size() == 0;
+        if ((o instanceof Collection)) {
+            return ((Collection) o).size() == 0;
         }
         if ((o instanceof Map)) {
             return ((Map) o).size() == 0;

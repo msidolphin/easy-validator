@@ -10,7 +10,10 @@ public class RegexValidatorTest extends BaseValidatorTest {
 
     @Test
     public void test() {
-        new RegexValidator().validate("192.168.0.1", new RegexConstraint(PATTERN), null);
+        RegexConstraint constraint = new RegexConstraint();
+        constraint.setPattern(PATTERN);
+        constraint.setFieldName("ip");
+        new RegexValidator().validate("192.168.0.1", constraint, null);
     }
 
     @Test

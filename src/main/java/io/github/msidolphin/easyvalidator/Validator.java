@@ -38,12 +38,12 @@ public final class Validator {
 
     private Object currentValue;
 
-    private String filedName;
+    private String fieldName;
 
     private Validator(Object value) {
         this.value = value;
         this.currentValue = value;
-        this.filedName = null;
+        this.fieldName = null;
     }
 
     public static Validator is(Object value) {
@@ -53,7 +53,7 @@ public final class Validator {
     public Validator get(String fieldName) {
         try {
             this.currentValue = PropertyUtils.getProperty(this.value, fieldName);
-            this.filedName = fieldName;
+            this.fieldName = fieldName;
             return this;
         } catch (Exception e) {
             this.currentValue = null;
@@ -68,7 +68,7 @@ public final class Validator {
     public Validator and(Object value) {
         this.value = value;
         this.currentValue = value;
-        this.filedName = null;
+        this.fieldName = null;
         return this;
     }
 
@@ -82,13 +82,13 @@ public final class Validator {
 
     public Validator notEmpty (String message) {
         NotEmptyValidator validator = ValidatorUtils.lookup(NotEmptyValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
     public Validator notNull(String message) {
         NotNullValidator validator = ValidatorUtils.lookup(NotNullValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -98,7 +98,7 @@ public final class Validator {
 
     public Validator regex(String regex, String message) {
         RegexValidator validator = ValidatorUtils.lookup(RegexValidator.class);
-        validator.validate(currentValue, new RegexConstraint(regex, filedName), message);
+        validator.validate(currentValue, new RegexConstraint(regex, fieldName), message);
         return this;
     }
 
@@ -108,7 +108,7 @@ public final class Validator {
 
     public Validator max(Number max, String message) {
         MaxValidator validator = ValidatorUtils.lookup(MaxValidator.class);
-        validator.validate(currentValue, new MaxConstraint(max, filedName), message);
+        validator.validate(currentValue, new MaxConstraint(max, fieldName), message);
         return this;
     }
 
@@ -118,7 +118,7 @@ public final class Validator {
 
     public Validator min(Number min, String message) {
         MinValidator validator = ValidatorUtils.lookup(MinValidator.class);
-        validator.validate(currentValue, new MinConstraint(min, filedName), message);
+        validator.validate(currentValue, new MinConstraint(min, fieldName), message);
         return this;
     }
 
@@ -128,7 +128,7 @@ public final class Validator {
 
     public Validator maxLength(int length, String message) {
         MaxLengthValidator validator = ValidatorUtils.lookup(MaxLengthValidator.class);
-        validator.validate(currentValue, new LengthConstraint(length, filedName), message);
+        validator.validate(currentValue, new LengthConstraint(length, fieldName), message);
         return this;
     }
 
@@ -138,7 +138,7 @@ public final class Validator {
 
     public Validator minLength(int length, String message) {
         MinLengthValidator validator = ValidatorUtils.lookup(MinLengthValidator.class);
-        validator.validate(currentValue, new LengthConstraint(length, filedName), message);
+        validator.validate(currentValue, new LengthConstraint(length, fieldName), message);
         return this;
     }
 
@@ -148,7 +148,7 @@ public final class Validator {
 
     public Validator chinese(String message) {
         ChineseValidator validator = ValidatorUtils.lookup(ChineseValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -158,7 +158,7 @@ public final class Validator {
 
     public Validator english(String message) {
         EnglishValidator validator = ValidatorUtils.lookup(EnglishValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -168,7 +168,7 @@ public final class Validator {
 
     public Validator phone(String message) {
         MobilePhoneNumberValidator validator = ValidatorUtils.lookup(MobilePhoneNumberValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -178,7 +178,7 @@ public final class Validator {
 
     public Validator email(String message) {
         EmailValidator validator = ValidatorUtils.lookup(EmailValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -188,7 +188,7 @@ public final class Validator {
 
     public Validator date(String format, String message) {
         DateValidator validator = ValidatorUtils.lookup(DateValidator.class);
-        validator.validate(currentValue, new DateConstraint(format, filedName), message);
+        validator.validate(currentValue, new DateConstraint(format, fieldName), message);
         return this;
     }
 
@@ -199,7 +199,7 @@ public final class Validator {
 
     public Validator idCard(String message) {
         IdCardValidator validator = ValidatorUtils.lookup(IdCardValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -209,7 +209,7 @@ public final class Validator {
 
     public Validator ip(String message) {
         IpValidator validator = ValidatorUtils.lookup(IpValidator.class);
-        validator.validate(currentValue, new BaseConstraint(filedName), message);
+        validator.validate(currentValue, new BaseConstraint(fieldName), message);
         return this;
     }
 
@@ -234,11 +234,7 @@ public final class Validator {
             if (CommonUtil.isEmpty(annotations)) {
                 continue;
             }
-            try {
-                validator.get(field.getName());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            validator.get(field.getName());
             for (Annotation annotation : annotations) {
 
                 if (annotation instanceof NotNull) {

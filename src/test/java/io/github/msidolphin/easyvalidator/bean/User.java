@@ -2,7 +2,11 @@ package io.github.msidolphin.easyvalidator.bean;
 
 import io.github.msidolphin.easyvalidator.annotation.*;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    private Long serialVersionUID = 1l;
 
     @NotEmpty(msg = "please enter you name.")
     @MaxLength(value = 10, msg = "name's length cannot be greater than 10.")

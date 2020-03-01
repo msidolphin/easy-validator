@@ -10,7 +10,10 @@ public class MinValidatorTest extends BaseValidatorTest {
 
     @Test
     public void test() {
-        new MinValidator().validate(21, new MinConstraint(20), null);
+        MinConstraint constraint = new MinConstraint();
+        constraint.setMin(20);
+        constraint.setFieldName("age");
+        new MinValidator().validate(21, constraint, null);
         new MinValidator().validate(20, new MinConstraint(20), null);
         new MinValidator().validate(20.1, new MinConstraint(20.1), null);
         new MinValidator().validate(20.1112, new MinConstraint(20.1111), null);

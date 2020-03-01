@@ -10,7 +10,10 @@ public class MaxValidatorTest extends BaseValidatorTest {
 
     @Test
     public void test() {
-        new MaxValidator().validate(10, new MaxConstraint(20), null);
+        MaxConstraint constraint = new MaxConstraint();
+        constraint.setFieldName("age");
+        constraint.setMax(20);
+        new MaxValidator().validate(10, constraint, null);
         new MaxValidator().validate(20, new MaxConstraint(20), null);
         new MaxValidator().validate(20, new MaxConstraint(20.1), null);
         new MaxValidator().validate(20.1111, new MaxConstraint(20.1111), null);

@@ -83,13 +83,13 @@ public final class Validator {
 
     public Validator notEmpty (String message) {
         NotEmptyValidator validator = ValidatorUtils.lookup(NotEmptyValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
     public Validator notNull(String message) {
         NotNullValidator validator = ValidatorUtils.lookup(NotNullValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -99,7 +99,9 @@ public final class Validator {
 
     public Validator regex(String regex, String message) {
         RegexValidator validator = ValidatorUtils.lookup(RegexValidator.class);
-        validator.validate(currentValue, new RegexConstraint(regex, fieldName), message);
+        RegexConstraint constraint = new RegexConstraint(regex, fieldName);
+        constraint.setMessage(message);
+        validator.validate(currentValue, constraint);
         return this;
     }
 
@@ -109,7 +111,9 @@ public final class Validator {
 
     public Validator max(Number max, String message) {
         MaxValidator validator = ValidatorUtils.lookup(MaxValidator.class);
-        validator.validate(currentValue, new MaxConstraint(max, fieldName), message);
+        MaxConstraint maxConstraint = new MaxConstraint(max, fieldName);
+        maxConstraint.setMessage(message);
+        validator.validate(currentValue, maxConstraint);
         return this;
     }
 
@@ -119,7 +123,9 @@ public final class Validator {
 
     public Validator min(Number min, String message) {
         MinValidator validator = ValidatorUtils.lookup(MinValidator.class);
-        validator.validate(currentValue, new MinConstraint(min, fieldName), message);
+        MinConstraint constraint = new MinConstraint(min, fieldName);
+        constraint.setMessage(message);
+        validator.validate(currentValue, constraint);
         return this;
     }
 
@@ -129,7 +135,9 @@ public final class Validator {
 
     public Validator maxLength(int length, String message) {
         MaxLengthValidator validator = ValidatorUtils.lookup(MaxLengthValidator.class);
-        validator.validate(currentValue, new LengthConstraint(length, fieldName), message);
+        LengthConstraint constraint = new LengthConstraint(length, fieldName);
+        constraint.setMessage(message);
+        validator.validate(currentValue, constraint);
         return this;
     }
 
@@ -139,7 +147,9 @@ public final class Validator {
 
     public Validator minLength(int length, String message) {
         MinLengthValidator validator = ValidatorUtils.lookup(MinLengthValidator.class);
-        validator.validate(currentValue, new LengthConstraint(length, fieldName), message);
+        LengthConstraint constraint = new LengthConstraint(length, fieldName);
+        constraint.setMessage(message);
+        validator.validate(currentValue, constraint);
         return this;
     }
 
@@ -149,7 +159,7 @@ public final class Validator {
 
     public Validator chinese(String message) {
         ChineseValidator validator = ValidatorUtils.lookup(ChineseValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -159,7 +169,7 @@ public final class Validator {
 
     public Validator english(String message) {
         EnglishValidator validator = ValidatorUtils.lookup(EnglishValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -169,7 +179,7 @@ public final class Validator {
 
     public Validator phone(String message) {
         MobilePhoneNumberValidator validator = ValidatorUtils.lookup(MobilePhoneNumberValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -179,7 +189,7 @@ public final class Validator {
 
     public Validator email(String message) {
         EmailValidator validator = ValidatorUtils.lookup(EmailValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -189,7 +199,9 @@ public final class Validator {
 
     public Validator date(String format, String message) {
         DateValidator validator = ValidatorUtils.lookup(DateValidator.class);
-        validator.validate(currentValue, new DateConstraint(format, fieldName), message);
+        DateConstraint constraint = new DateConstraint(format, fieldName);
+        constraint.setMessage(message);
+        validator.validate(currentValue, constraint);
         return this;
     }
 
@@ -200,7 +212,7 @@ public final class Validator {
 
     public Validator idCard(String message) {
         IdCardValidator validator = ValidatorUtils.lookup(IdCardValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
@@ -210,18 +222,23 @@ public final class Validator {
 
     public Validator ip(String message) {
         IpValidator validator = ValidatorUtils.lookup(IpValidator.class);
-        validator.validate(currentValue, new BaseConstraint(fieldName), message);
+        validator.validate(currentValue, BaseConstraint.createConstraint(fieldName, message));
         return this;
     }
 
     public Validator custom(Class<? extends ConstraintValidator> validatorClass) {
+        return custom(validatorClass, null);
+    }
+
+    public Validator custom(Class<? extends ConstraintValidator> validatorClass, String message) {
         ConstraintValidator validator = ValidatorUtils.lookup(validatorClass);
         if (CommonUtil.isEmpty(validator)) {
             throw new ValidatorNotFoundException(validatorClass.getName());
         }
-        validator.validate(currentValue, new BaseConstraint(fieldName));
+        validator.validate(currentValue, new BaseConstraint(fieldName, message));
         return this;
     }
+
 
     public static Validator validate(Object value) {
         Validator validator = new Validator(value);
@@ -288,9 +305,15 @@ public final class Validator {
                 } else if (annotation instanceof IP) {
                     validator.ip(((IP) annotation).msg());
                 } else {
+                    String message = null;
+                    try {
+                        // 仅支持msg字段
+                        message = (String) annotation.annotationType().getDeclaredMethod("msg").invoke(annotation);
+                    } catch (Exception e) {
+                    }
                     Constraint constraint = ReflectUtils.getConstraintAnnotation(annotation);
                     if (CommonUtil.isEmpty(constraint)) return validator;
-                    validator.custom(constraint.validatedBy());
+                    validator.custom(constraint.validatedBy(), message);
                 }
             }
         }

@@ -21,10 +21,11 @@ import io.github.msidolphin.easyvalidator.constraint.MaxConstraint;
 import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 
-public class MaxValidator extends AbstractValidator<MaxConstraint> {
+public class MaxValidator extends AbstractValidator<Object, MaxConstraint> {
 
     @Override
-    public boolean validate(Object value, MaxConstraint constraint, String message) {
+    public void validate(Object value, MaxConstraint constraint) {
+        String message = constraint.getMessage();
         Number max = constraint.getMax();
         if (CommonUtil.isEmpty(value) && !(value instanceof String)) {
             if (CommonUtil.isEmpty(message)) throw new ValidateFailedException(getMessage(value, max, message), constraint.getFieldName());
@@ -50,7 +51,6 @@ public class MaxValidator extends AbstractValidator<MaxConstraint> {
             if (CommonUtil.isEmpty(message)) throw new ValidateFailedException(getMessage(value, max, message), constraint.getFieldName());
             else throw new ValidateFailedException(message);
         }
-        return true;
     }
 
     private String getMessage (Object value, Number max, String message) {

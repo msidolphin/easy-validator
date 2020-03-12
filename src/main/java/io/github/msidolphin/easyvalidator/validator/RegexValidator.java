@@ -21,12 +21,13 @@ import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import io.github.msidolphin.easyvalidator.util.RegexUtil;
 
-public class RegexValidator extends AbstractValidator<RegexConstraint> {
+public class RegexValidator extends AbstractValidator<Object, RegexConstraint> {
 
     @Override
-    public boolean validate(Object value, RegexConstraint constraint, String message) {
-        if (!CommonUtil.isString(value)) return false;
-        if (CommonUtil.isEmpty(constraint)) return false;
+    public void validate(Object value, RegexConstraint constraint) {
+        String message = constraint.getMessage();
+        if (!CommonUtil.isString(value)) return;
+        if (CommonUtil.isEmpty(constraint)) return;
         String pattern = constraint.getPattern();
         if (!RegexUtil.test(pattern, (String) value)) {
             if (CommonUtil.isEmpty(message)) {
@@ -37,7 +38,6 @@ public class RegexValidator extends AbstractValidator<RegexConstraint> {
             }
             throw new ValidateFailedException(message);
         }
-        return true;
     }
 
 }

@@ -21,17 +21,19 @@ import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import io.github.msidolphin.easyvalidator.util.RegexUtil;
 
-public class MobilePhoneNumberValidator extends AbstractValidator<BaseConstraint> {
+public class MobilePhoneNumberValidator extends AbstractValidator<Object, BaseConstraint> {
 
     private final static String PATTERN  = "^1[3456789]\\d{9}$";
 
     @Override
-    public boolean validate(Object value, BaseConstraint constraint, String message) {
+    public void validate(Object value, BaseConstraint constraint) {
         if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
-        if (CommonUtil.isEmpty(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (!CommonUtil.isString(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (RegexUtil.test(PATTERN, (String) value)) return true;
-        return validateFailed(value, message, getFieldName(constraint));
+        String message = constraint.getMessage();
+        if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
+        if (CommonUtil.isEmpty(value)) validateFailed(value, message, getFieldName(constraint));
+        if (!CommonUtil.isString(value)) validateFailed(value, message, getFieldName(constraint));
+        if (RegexUtil.test(PATTERN, (String) value)) return;
+        validateFailed(value, message, getFieldName(constraint));
     }
 
     private boolean validateFailed (Object value, String message, String fieldName) {

@@ -24,12 +24,13 @@ import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DateValidator extends AbstractValidator<DateConstraint> {
+public class DateValidator extends AbstractValidator<Object, DateConstraint> {
 
     @Override
-    public boolean validate(Object value, DateConstraint constraint, String message) {
+    public void validate(Object value, DateConstraint constraint) {
         if (CommonUtil.isEmpty(constraint)) constraint = new DateConstraint();
         String format = constraint.getFormat();
+        String message = constraint.getMessage();
         if (CommonUtil.isEmpty(value)) validateFailed(value, constraint, message);
         if (!CommonUtil.isString(value)) validateFailed(value, constraint, message);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
@@ -38,7 +39,6 @@ public class DateValidator extends AbstractValidator<DateConstraint> {
         } catch (ParseException e) {
             validateFailed(value, constraint, message);
         }
-        return true;
     }
 
     private void validateFailed (Object value, DateConstraint constraint, String message) {

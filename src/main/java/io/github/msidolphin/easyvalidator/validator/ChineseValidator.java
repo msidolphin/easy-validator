@@ -22,15 +22,15 @@ import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.StringsUtil;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 
-public class ChineseValidator extends AbstractValidator<BaseConstraint> {
+public class ChineseValidator extends AbstractValidator<Object, BaseConstraint> {
 
     @Override
-    public boolean validate(Object value, BaseConstraint constraint, String message) {
+    public void validate(Object value, BaseConstraint constraint) {
         if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
+        String message = constraint.getMessage();
         if (CommonUtil.isEmpty(value)) validateFailed(value, constraint, message);
         if (!CommonUtil.isString(value)) validateFailed(value, constraint, message);
         if (!StringsUtil.isChinese((String) value)) validateFailed(value, constraint, message);
-        return true;
     }
 
     private static void validateFailed(Object value, BaseConstraint constraint, String message) {

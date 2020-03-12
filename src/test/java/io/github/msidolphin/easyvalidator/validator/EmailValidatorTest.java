@@ -1,5 +1,6 @@
 package io.github.msidolphin.easyvalidator.validator;
 
+import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
 import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -11,9 +12,9 @@ public class EmailValidatorTest extends TestCase {
 
     @Test
     public void test() {
-        new EmailValidator().validate("1234123412341@outlook.com", null, null);
-        new EmailValidator().validate("iqweopriopqewrk@sinochem.com", null, null);
-        new EmailValidator().validate("ajkldsfjkladsjklf@vip.tom.com", null, null);
+        new EmailValidator().validate("1234123412341@outlook.com", null);
+        new EmailValidator().validate("iqweopriopqewrk@sinochem.com", null);
+        new EmailValidator().validate("ajkldsfjkladsjklf@vip.tom.com", null);
     }
 
     @Test
@@ -29,7 +30,9 @@ public class EmailValidatorTest extends TestCase {
 
     private void tryCatch(Object value, String message) {
         try {
-            new EmailValidator().validate(value, null, message);
+            BaseConstraint constraint = new BaseConstraint();
+            constraint.setMessage(message);
+            new EmailValidator().validate(value, constraint);
         } catch (ValidateFailedException e) {
             System.out.println(e);
             return;

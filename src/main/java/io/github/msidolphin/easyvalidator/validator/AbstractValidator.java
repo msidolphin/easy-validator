@@ -20,11 +20,11 @@ package io.github.msidolphin.easyvalidator.validator;
 import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 
-public abstract class AbstractValidator<T extends BaseConstraint> implements IValidator<T> {
+public abstract class AbstractValidator<E, T extends BaseConstraint> implements IValidator<E, T> {
 
     @Override
-    public boolean validate(Object value, T constraint, String message) {
-        return true;
+    public void validate(E value, T constraint) {
+
     }
 
     public String getFieldName (T constraint) {

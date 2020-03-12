@@ -24,10 +24,11 @@ import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import java.util.Collection;
 import java.util.Map;
 
-public class MaxLengthValidator extends AbstractValidator<LengthConstraint> {
+public class MaxLengthValidator extends AbstractValidator<Object, LengthConstraint> {
 
     @Override
-    public boolean validate(Object value, LengthConstraint constraint, String message) {
+    public void validate(Object value, LengthConstraint constraint) {
+        String message = constraint.getMessage();
         int max = constraint.getLength();
         boolean result = false;
         if (value instanceof String) {
@@ -39,8 +40,7 @@ public class MaxLengthValidator extends AbstractValidator<LengthConstraint> {
         } else if (value instanceof Object[]) {
             result = maxLength(max, (Object[]) value);
         }
-        if (!result) return validateFailed(value, constraint, message);
-        return true;
+        if (!result) validateFailed(value, constraint, message);
     }
 
     private boolean maxLength(int max, String value) {

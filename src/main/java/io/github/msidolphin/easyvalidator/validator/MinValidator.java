@@ -21,10 +21,11 @@ import io.github.msidolphin.easyvalidator.constraint.MinConstraint;
 import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 
-public class MinValidator extends AbstractValidator<MinConstraint> {
+public class MinValidator extends AbstractValidator<Object, MinConstraint> {
 
     @Override
-    public boolean validate(Object value, MinConstraint constraint, String message) {
+    public void validate(Object value, MinConstraint constraint) {
+        String message = constraint.getMessage();
         Number min = constraint.getMin();
         if (CommonUtil.isEmpty(value) && !(value instanceof String)) {
             if (CommonUtil.isEmpty(message)) throw new ValidateFailedException(getMessage(value, min, message), constraint.getFieldName());
@@ -50,7 +51,6 @@ public class MinValidator extends AbstractValidator<MinConstraint> {
             if (CommonUtil.isEmpty(message)) throw new ValidateFailedException(getMessage(value, min, message), constraint.getFieldName());
             else throw new ValidateFailedException(message);
         }
-        return true;
     }
 
     private String getMessage (Object value, Number min, String message) {

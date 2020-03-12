@@ -20,11 +20,13 @@ import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
 import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 
-public class NotNullValidator extends AbstractValidator<BaseConstraint> {
+public class NotNullValidator extends AbstractValidator<Object, BaseConstraint> {
 
     @Override
-    public boolean validate(Object value, BaseConstraint constraint, String message) {
-        if (value != null) return true;
+    public void validate(Object value, BaseConstraint constraint) {
+        if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
+        String message = constraint.getMessage();
+        if (value != null) return;
         if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
         if (CommonUtil.isEmpty(message)) {
             message = "expected not null";

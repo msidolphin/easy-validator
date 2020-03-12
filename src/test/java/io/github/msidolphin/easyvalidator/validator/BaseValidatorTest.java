@@ -14,7 +14,7 @@ public class BaseValidatorTest extends TestCase {
         AbstractValidator validator = new BaseValidator();
         BaseConstraint constraint = new BaseConstraint();
         constraint.setFieldName("name");
-        validator.validate(null, constraint, null);
+        validator.validate(null, constraint);
         String fieldName = validator.getFieldName(constraint);
         assertEquals("name", fieldName);
     }

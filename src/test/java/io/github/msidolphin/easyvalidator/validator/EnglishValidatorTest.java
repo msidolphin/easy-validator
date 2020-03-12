@@ -1,5 +1,6 @@
 package io.github.msidolphin.easyvalidator.validator;
 
+import io.github.msidolphin.easyvalidator.constraint.BaseConstraint;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,17 +10,17 @@ public class EnglishValidatorTest extends BaseValidatorTest {
 
     @Test
     public void test () {
-        new EnglishValidator().validate("Iamfinethankyouandyou", null, null);
-        new EnglishValidator().validate("abcDEfgHijklmnoPqrStuvWxYz", null, null);
+        new EnglishValidator().validate("Iamfinethankyouandyou", new BaseConstraint());
+        new EnglishValidator().validate("abcDEfgHijklmnoPqrStuvWxYz", new BaseConstraint());
     }
 
     @Test
     public void testFailed () {
-        tryCatch(() -> {new EnglishValidator().validate(null, null, null); });
-        tryCatch(() -> {new EnglishValidator().validate("", null, null); });
-        tryCatch(() -> {new EnglishValidator().validate("？？？？？？", null, null); });
-        tryCatch(() -> {new EnglishValidator().validate(new HashMap<>(), null, null); });
-        tryCatch(() -> {new EnglishValidator().validate(new ArrayList<>(), null, null); });
+        tryCatch(() -> {new EnglishValidator().validate(null, new BaseConstraint()); });
+        tryCatch(() -> {new EnglishValidator().validate("", new BaseConstraint()); });
+        tryCatch(() -> {new EnglishValidator().validate("？？？？？？", new BaseConstraint()); });
+        tryCatch(() -> {new EnglishValidator().validate(new HashMap<>(), new BaseConstraint()); });
+        tryCatch(() -> {new EnglishValidator().validate(new ArrayList<>(), new BaseConstraint()); });
     }
 
 

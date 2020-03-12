@@ -6,4 +6,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Constraint(validatedBy = SexValidator.class)
 public @interface Sex {
+
+    String msg() default "";
+
 }

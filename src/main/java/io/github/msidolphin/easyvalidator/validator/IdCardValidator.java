@@ -25,7 +25,7 @@ import io.github.msidolphin.easyvalidator.util.RegexUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IdCardValidator extends AbstractValidator<BaseConstraint> {
+public class IdCardValidator extends AbstractValidator<Object, BaseConstraint> {
 
     private final static int[] factorArr = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
     private final static char[] parityBit = {'1', '0', 'x', '9', '8', '7', '6', '5', '4', '3', '2'};
@@ -74,12 +74,13 @@ public class IdCardValidator extends AbstractValidator<BaseConstraint> {
     }
 
     @Override
-    public boolean validate(Object value, BaseConstraint constraint,  String message) {
+    public void validate(Object value, BaseConstraint constraint) {
         if (CommonUtil.isEmpty(constraint)) constraint = new BaseConstraint();
-        if (CommonUtil.isEmpty(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (!CommonUtil.isString(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (isIdCard((String) value)) return true;
-        return validateFailed(value, message, getFieldName(constraint));
+        String message = constraint.getMessage();
+        if (CommonUtil.isEmpty(value)) validateFailed(value, message, getFieldName(constraint));
+        if (!CommonUtil.isString(value)) validateFailed(value, message, getFieldName(constraint));
+        if (isIdCard((String) value)) return;
+        validateFailed(value, message, getFieldName(constraint));
     }
 
     private boolean validateFailed (Object value, String message, String fieldName) {

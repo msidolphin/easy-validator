@@ -18,6 +18,8 @@ package io.github.msidolphin.easyvalidator.constraint;
 
 public class BaseConstraint {
 
+    private String message;
+
     private String fieldName;
 
     public BaseConstraint() {
@@ -27,12 +29,31 @@ public class BaseConstraint {
         this.fieldName = fieldName;
     }
 
+    public BaseConstraint(String fieldName, String message) {
+        this.fieldName = fieldName;
+        this.message = message;
+    }
+
     public String getFieldName() {
         return fieldName;
     }
 
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public BaseConstraint setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+
+    public static BaseConstraint createConstraint(String fieldName, String message) {
+        BaseConstraint constraint = new BaseConstraint(fieldName, message);
+        return constraint;
     }
 
 }

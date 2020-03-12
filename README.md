@@ -12,7 +12,7 @@
 <dependency>
   <groupId>io.github.msidolphin</groupId>
   <artifactId>easyvalidator</artifactId>
-  <version>1.0.0-RELEASE</version>
+  <version>1.0.1-RELEASE</version>
 </dependency>
 ```
 
@@ -233,7 +233,7 @@ class Main {
 | english | 英文校验 | -  /（String message） |
 | pattern | 自定义正则校验 | (String pattern) / (String pattern, String message) |
 | date | 日期格式校验 | (String format) /（String format, String message） |
-| custom | 自定义校验 | Class<? extends ConstraintValidator> validatorClass |
+| custom | 自定义校验 | Class<? extends ConstraintValidator> validatorClass, [String message] |
 
 ## 自定义校验
 
@@ -248,6 +248,9 @@ import io.github.msidolphin.easyvalidator.annotation.Constraint;
 @Target({ElementType.FIELD})
 @Constraint(validatedBy = SexValidator.class)
 public @interface Sex {
+    
+    String msg() default ""; // 仅支持msg字段
+
 }
 
 ```
@@ -262,7 +265,7 @@ public class SexValidator extends ConstraintValidator<String> {
     @Override
     public void validate(String gender, BaseConstraint constraint) {
         if (!"male".equals(gender) && !"female".equals(gender)) {
-            throw new RuntimeException("gender must be male or female.");
+            throw new RuntimeException(constraint.getMessage());
         }
     }
 

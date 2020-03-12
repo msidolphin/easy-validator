@@ -16,6 +16,7 @@
 
 package io.github.msidolphin.easyvalidator;
 
+import io.github.msidolphin.easyvalidator.annotation.SexValidator;
 import io.github.msidolphin.easyvalidator.bean.EmptyEntity;
 import io.github.msidolphin.easyvalidator.bean.User;
 import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
@@ -41,7 +42,8 @@ public class ValidatorTest extends BaseValidatorTest {
             .setIdCard("11010119950101555X")
             .setIp("192.168.0.1")
             .setIntro("我的名字叫迈克")
-            .setWeight("75kg");
+            .setWeight("75kg")
+            .setSex("male");
         Validator.is(params).notNull()
                 .get("name").notEmpty().english().maxLength(10)
                 .get("age").notEmpty().min(18).max(26)
@@ -54,7 +56,8 @@ public class ValidatorTest extends BaseValidatorTest {
                 .get("ip").ip()
                 .get("idCard").idCard()
                 .get("intro").chinese().minLength(2)
-                .get("weight").regex("\\d{2,3}kg");
+                .get("weight").regex("\\d{2,3}kg")
+                .get("sex").custom(SexValidator.class);
     }
 
     @Test

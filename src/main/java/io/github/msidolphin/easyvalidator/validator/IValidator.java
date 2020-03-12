@@ -17,8 +17,8 @@
 
 package io.github.msidolphin.easyvalidator.validator;
 
-public interface IValidator<T> {
+public interface IValidator<T, E> {
 
-    boolean validate(Object value, T constraint, String message);
+    void validate(T value, E constraint);
 
 }

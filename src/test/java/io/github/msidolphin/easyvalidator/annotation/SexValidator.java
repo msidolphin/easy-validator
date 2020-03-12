@@ -8,7 +8,7 @@ public class SexValidator extends ConstraintValidator<String> {
     @Override
     public void validate(String gender, BaseConstraint constraint) {
         if (!"male".equals(gender) && !"female".equals(gender)) {
-            throw new RuntimeException("gender must be male or female.");
+            throw new RuntimeException(constraint.getMessage());
         }
     }
 

@@ -42,7 +42,7 @@ public class User implements Serializable {
     @Pattern("\\d{1,3}kg")
     private String weight;
 
-    @Sex
+    @Sex(msg = "gender must be male or female")
     private String sex;
 
     public String getName() {

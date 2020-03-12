@@ -13,13 +13,13 @@ public class RegexValidatorTest extends BaseValidatorTest {
         RegexConstraint constraint = new RegexConstraint();
         constraint.setPattern(PATTERN);
         constraint.setFieldName("ip");
-        new RegexValidator().validate("192.168.0.1", constraint, null);
+        new RegexValidator().validate("192.168.0.1", constraint);
     }
 
     @Test
     public void testFailed() {
         tryCatch(() -> {
-            new RegexValidator().validate("192.168.0.256", new RegexConstraint(PATTERN), null);
+            new RegexValidator().validate("192.168.0.256", new RegexConstraint(PATTERN));
         });
     }
 

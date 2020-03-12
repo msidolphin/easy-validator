@@ -11,18 +11,18 @@ public class NotNullValidatorTest extends BaseValidatorTest {
 
     @Test
     public void test() {
-        new NotNullValidator().validate("", null, null);
-        new NotNullValidator().validate(new HashMap<>(), null, null);
-        new NotNullValidator().validate(new User(), null, null);
-        new NotNullValidator().validate(new ArrayList<>(), null, null);
-        new NotNullValidator().validate(new Object[]{}, null, null);
-        new NotNullValidator().validate(new HashSet<>(), null, null);
-        new NotNullValidator().validate(1, null, null);
+        new NotNullValidator().validate("", null);
+        new NotNullValidator().validate(new HashMap<>(), null);
+        new NotNullValidator().validate(new User(), null);
+        new NotNullValidator().validate(new ArrayList<>(), null);
+        new NotNullValidator().validate(new Object[]{}, null);
+        new NotNullValidator().validate(new HashSet<>(), null);
+        new NotNullValidator().validate(1, null);
     }
 
     @Test
     public void testFailed() {
-        tryCatch(() -> {new NotNullValidator().validate(null, null, null); });
+        tryCatch(() -> {new NotNullValidator().validate(null, null); });
     }
 
 }

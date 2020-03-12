@@ -22,16 +22,17 @@ import io.github.msidolphin.easyvalidator.exception.ValidateFailedException;
 import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import io.github.msidolphin.easyvalidator.util.RegexUtil;
 
-public class EnglishValidator extends AbstractValidator<BaseConstraint> {
+public class EnglishValidator extends AbstractValidator<Object, BaseConstraint> {
 
     private final static String PATTERN  = "^[a-zA-z]{1,}$";
 
     @Override
-    public boolean validate(Object value, BaseConstraint constraint, String message) {
-        if (CommonUtil.isEmpty(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (!CommonUtil.isString(value)) return validateFailed(value, message, getFieldName(constraint));
-        if (RegexUtil.test(PATTERN, (String) value)) return true;
-        return validateFailed(value, message, getFieldName(constraint));
+    public void validate(Object value, BaseConstraint constraint) {
+        String message = constraint.getMessage();
+        if (CommonUtil.isEmpty(value)) validateFailed(value, message, getFieldName(constraint));
+        if (!CommonUtil.isString(value)) validateFailed(value, message, getFieldName(constraint));
+        if (RegexUtil.test(PATTERN, (String) value)) return;
+        validateFailed(value, message, getFieldName(constraint));
     }
 
 

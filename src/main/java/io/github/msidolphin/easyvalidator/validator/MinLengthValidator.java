@@ -24,11 +24,12 @@ import io.github.msidolphin.easyvalidator.util.CommonUtil;
 import java.util.Collection;
 import java.util.Map;
 
-public class MinLengthValidator extends AbstractValidator<LengthConstraint> {
+public class MinLengthValidator extends AbstractValidator<Object, LengthConstraint> {
 
     @Override
-    public boolean validate(Object value, LengthConstraint constraint, String message) {
+    public void validate(Object value, LengthConstraint constraint) {
         int min = constraint.getLength();
+        String message = constraint.getMessage();
         boolean result = false;
         if (value instanceof String) {
             result = minLength(min, (String) value);
@@ -39,8 +40,7 @@ public class MinLengthValidator extends AbstractValidator<LengthConstraint> {
         } else if (value instanceof Object[]) {
             result = minLength(min, (Object[]) value);
         }
-        if (!result) return validateFailed(value, constraint, message);
-        return true;
+        if (!result) validateFailed(value, constraint, message);
     }
 
     private boolean minLength(int min, String value) {

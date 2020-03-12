@@ -13,13 +13,13 @@ public class DateValidatorTest extends TestCase {
 
     @Test
     public void test() {
-        new DateValidator().validate("2020-02-28", new DateConstraint("yyyy-MM-dd"), null);
-        new DateValidator().validate("2020.02.28", new DateConstraint("yyyy.MM.dd"), null);
-        new DateValidator().validate("2020年02月28日", new DateConstraint("yyyy年MM月dd日"), null);
-        new DateValidator().validate("2020/02/28", new DateConstraint("yyyy/MM/dd"), null);
-        new DateValidator().validate("2020年02月28日 11:14:30", new DateConstraint("yyyy年MM月dd日 HH:mm:ss"), null);
-        new DateValidator().validate("2020年02月28日 11:14", new DateConstraint("yyyy年MM月dd日 HH:mm"), null);
-        new DateValidator().validate("2020年02月28日 11", new DateConstraint("yyyy年MM月dd日 HH"), null);
+        new DateValidator().validate("2020-02-28", new DateConstraint("yyyy-MM-dd"));
+        new DateValidator().validate("2020.02.28", new DateConstraint("yyyy.MM.dd"));
+        new DateValidator().validate("2020年02月28日", new DateConstraint("yyyy年MM月dd日"));
+        new DateValidator().validate("2020/02/28", new DateConstraint("yyyy/MM/dd"));
+        new DateValidator().validate("2020年02月28日 11:14:30", new DateConstraint("yyyy年MM月dd日 HH:mm:ss"));
+        new DateValidator().validate("2020年02月28日 11:14", new DateConstraint("yyyy年MM月dd日 HH:mm"));
+        new DateValidator().validate("2020年02月28日 11", new DateConstraint("yyyy年MM月dd日 HH"));
     }
 
     @Test
@@ -38,7 +38,8 @@ public class DateValidatorTest extends TestCase {
             DateConstraint constraint = new DateConstraint();
             constraint.setFieldName("time");
             constraint.setFormat(format);
-            new DateValidator().validate(value, constraint, message);
+            constraint.setMessage(message);
+            new DateValidator().validate(value, constraint);
         } catch (ValidateFailedException e) {
             assertEquals("Failed to validate time: expected: " + format + ", actual: " + value, e.getMessage());
             return;
